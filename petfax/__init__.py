@@ -1,22 +1,40 @@
 # config                    
 from flask import Flask
+from flask_migrate import Migrate 
 
 # factory
 def create_app():
     app = Flask(__name__)
 
-    # index route
-    @app.route('/')
-    def index(): 
-        return 'Hello, PetFax!'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Rod4man08291012@localhost:5432/petfax'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False             
 
-    # register pet blueprint 
-    from . import pet 
+        #db stuff
+    from . import models
+    models.db.init_app(app)
+
+    migrate = Migrate(app, models.db)
+
+    # index route
+    # type GET
+    @app.route('/')
+    def hello():
+        return 'Hello, this is PetFax!'
+
+    # register the Blueprints
+    from . import pet
     app.register_blueprint(pet.bp)
 
-    # register fact blueprint 
     from . import fact
     app.register_blueprint(fact.bp)
 
-    # return the app 
+    # @app.route('/pets/<int:pet_id>')
+    # def one_pet(pet_id):
+    #     return f'Post {pet_id}'
+
     return app
+
+ 
+
+
+

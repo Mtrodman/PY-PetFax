@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetFax | Pets</title>
+    <title>{{pet.pet_name}}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="container">
-        <H1>{{ pet.pet_name }}</H1>
-        <div class="callout">
-            <span style="font-weight: 800">Did you know?</span><br/>{{ pet.pet_fact }}
+        <div class="block">
+            <h1>{{pet.pet_name}}</h1>
+            <img class="page_img" src="{{pet.pet_photo}}" alt="{{pet.pet_name}}" />
         </div>
-        <div class="pets-container">
-            <div class="show-pet">
-                <img src="{{ url_for('static', filename='assets/') }}{{ pet.pet_photo }}"/>
-            </div>
+        <div class="block" id="facts">
+            <h2>
+                Animal Facts
+            </h2>
+            <p id="text">
+                {{pet.pet_fact}}
+            </p>
+            <p>
+                <a id="home_button" class="button_link" href="http://127.0.0.1:5000/pets/">Back to Home</a>
+            </p>
         </div>
-        <a href="/pets">⟨　Go back</a>
     </div>
 </body>
+
 </html>
